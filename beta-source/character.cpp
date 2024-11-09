@@ -54,21 +54,14 @@ void Character::setPosition(float x, float y) // currently this is set for debug
 	this->debug.setPosition(x, y);
 }
 
-Character::Character(float VxAccel, float MaxVx, float VxDecel, float VyInstSpeed, std::string pathToTexture)
+Character::Character(float VxAccel, float MaxVx, float VxDecel, float VyInstSpeed, std::string pathToTexture): VxAccel(VxAccel), MaxVx(MaxVx), VxDecel(VxDecel), VyInstantaneousSpeed(VyInstSpeed), isMidAir(true)
 {
-	this->VxAccel = VxAccel;
-	this->MaxVx = MaxVx;
-	this->VxDecel = VxDecel;
-	this->VyInstantaneousSpeed = VyInstSpeed;
-	sf::Texture a;
-	a.loadFromFile(pathToTexture);
-	this->charSprite.setTexture(a);
-	this->spriteSize = a.getSize();
-	sf::RectangleShape b(sf::Vector2f(100, 100));
-	this->debug = b;
-	this->isMidAir = true;
-	debug.setFillColor(sf::Color::Red);
-	// currently this is set for debug 
+	mainTexture.loadFromFile(pathToTexture);
+	this->charSprite.setTexture(mainTexture);
+	this->spriteSize = mainTexture.getSize();
+	this->debug = sf::RectangleShape(sf::Vector2f(100, 100));
+	this->debug.setTexture(&mainTexture);
+	this->debug.setFillColor(sf::Color::Red);
 }
 
 void Character::setPosition(sf::Vector2f a) // currently this is set for debug 
