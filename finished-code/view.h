@@ -1,15 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include <vector>
-#include <random>
-#include <cmath>
-#include <stdlib.h>
-#include <ctime>
-#include <string>
 
-const float PI = 3.141592653f;
-const float grav = 9.8f;
 class View{
 private:
 	float m_leftLevel;
