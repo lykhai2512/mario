@@ -15,6 +15,7 @@ protected:
 	float VyInstantaneousSpeed; // for jumps
 	std::vector <sf::Texture> textureList; // for animations, for now this stays unimplemented
 	sf::Vector2u spriteSize;
+	sf::Texture mainTexture;
 public:
 	sf::Sprite charSprite;
 	sf::RectangleShape debug;
