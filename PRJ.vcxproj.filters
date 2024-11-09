@@ -27,6 +27,9 @@
     <ClCompile Include="beta-source\view.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="beta-source\character.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="beta-source\entity.h">

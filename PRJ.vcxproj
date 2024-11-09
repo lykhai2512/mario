@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="beta-source\character.cpp" />
     <ClCompile Include="beta-source\ConsoleApplication1.cpp" />
     <ClCompile Include="beta-source\entity.cpp" />
     <ClCompile Include="beta-source\gun.cpp" />
