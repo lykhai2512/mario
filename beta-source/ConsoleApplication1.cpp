@@ -1,21 +1,38 @@
 #include "view.h"
 #include "gun.h"
+#include "character.h"
+#include <iostream>
+#include <string>
+#include <fstream>
 
 int main() {
     // Create a window with a title and size 800x600
+
+
     sf::RenderWindow window(sf::VideoMode(1600, 800), "SFML Movable Object with Gravity");
+    
+    std::string name("neko2.png");
+
+    sf::Image test;
+    test.loadFromFile(name);
+
     sf::Texture neko;
-    neko.loadFromFile("neko2.png");
+    neko.loadFromFile(name);
     sf::RectangleShape player(sf::Vector2f(100.0f, 100.0f));
     player.setTexture(&neko);
     player.setOrigin(player.getSize().x / 2, player.getSize().y / 2);
     View mainView(window);
     window.setFramerateLimit(60);
-    
+
+    Character curPlayer(3, 20, 1.5, 20, name);
+
     
     sf::CircleShape hihi(200);
     hihi.setPosition(900, 0);
     player.setPosition(0, 200); // Initial position (near the middle of the screen)
+
+    curPlayer.setPosition(0, 200);
+
     // Variables for gravity and movement
     float moveSpeed = 15.0f;        // Horizontal movement speed
     float gravity = 0.4f;          // Gravity acceleration
@@ -33,6 +50,12 @@ int main() {
 
     bool isFlippedHorizontally = false;
 
+    sf::Clock clocc;
+
+    //player.setFillColor(sf::Color::Green);
+
+    curPlayer.charSprite.setColor(sf::Color::Red);
+
     Gun ak47(mainView);
     while (window.isOpen()) {
         sf::Event event; 
@@ -41,9 +64,10 @@ int main() {
                 window.close();
             }
         }
-        
+
+        float deltaTime = clocc.restart().asSeconds();
         hihi.setFillColor(sf::Color::White);
-        
+        /*
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             player.move(-moveSpeed, 0); // Move left
             player.setScale(-1.0f, 1.0f); // Flip horizontally
@@ -91,14 +115,21 @@ int main() {
             isGrounded = true;  // The player is now grounded
             player.setFillColor(sf::Color::White);
         }
+        */
 
-        mainView.followPlayer(player.getPosition().x, player.getPosition().y, 0, 0);
+
+        curPlayer.updateSpeed();
+        curPlayer.move(deltaTime, window.getSize().y);
+
+        mainView.followPlayer(curPlayer.debug.getPosition().x, curPlayer.debug.getPosition().y, 0, 0);
         window.clear(sf::Color::Black);
         
         mainView.setView(window);
         window.draw(hihi);
-        window.draw(player);
-        //window.draw(lowerArea);
+        //window.draw(player);
+        window.draw(curPlayer.debug);
+
+        window.draw(lowerArea);
         ak47.displayBullets(window);
         window.display();
     }
