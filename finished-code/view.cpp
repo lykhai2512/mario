@@ -48,7 +48,7 @@ void View::followPlayer(const sf::CircleShape& s) {
 }
 
 bool View::outOfView(const float& x, const float& y, const float& w, const float& h) {
-	return (x <= m_leftLevel-150.0f) || (x >= m_rightLevel+150.0f) || (y >= m_groundLevel+150.0f) || (y <= m_skyLevel-150.0f);
+	return (x <= m_leftLevel-150.0f) || (x+w >= m_rightLevel+150.0f) || (y+h >= m_groundLevel+150.0f) || (y <= m_skyLevel-150.0f);
 }
 
 bool View::outOfView(const sf::RectangleShape& s) {
