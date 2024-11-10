@@ -16,6 +16,5 @@ public:
     virtual void shoot();
     virtual void becomeSmaller();
     void die();
-    void becomeSmaller();
 };
 
