@@ -2,6 +2,8 @@
 #include<iostream>
 #include<vector>
 #include "Block.h"
+#include "Item.h"
+#include "Character.h"
 
 
 class AssetManager {
