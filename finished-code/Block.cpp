@@ -37,3 +37,11 @@ void Block::move(){}
 void Block::jump(){}
 
 void Block::die(){}
+
+void Block::collect(WorldObject *object){}
+
+void Block::standOn(WorldObject *object){}
+
+void Block::setPositionFor(WorldObject *object){}
+
+void Block::hit(WorldObject *object){}

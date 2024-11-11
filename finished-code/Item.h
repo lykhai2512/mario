@@ -14,8 +14,13 @@ private:
 
 public:
 	static Item* createItem(ItemType type);
+	
 	void move();
-	void jump();
-	void die();
+    void jump();
+    void die();
+    void collect(WorldObject* object);
+    void standOn(WorldObject* object);
+    void setPositionFor(WorldObject* object);
+    void hit(WorldObject* object);
 };
 

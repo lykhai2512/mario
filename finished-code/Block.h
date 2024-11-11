@@ -35,7 +35,11 @@ private:
 public:
 	static Block* createBlock(BlockType type);
 	void move();
-	void jump();
-	void die();
+    void jump();
+    void die();
+    void collect(WorldObject* object);
+    void standOn(WorldObject* object);
+    void setPositionFor(WorldObject* object);
+    void hit(WorldObject* object);
 };
 

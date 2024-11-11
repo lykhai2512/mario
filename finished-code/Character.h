@@ -13,9 +13,10 @@ public:
 	static Character* createCharacter(CharacterType type);
     void move();
     void jump();
-    virtual void shoot();
-    virtual void becomeSmaller();
     void die();
-    void becomeSmaller();
+    void collect(WorldObject* object);
+    void standOn(WorldObject* object);
+    void setPositionFor(WorldObject* object);
+    void hit(WorldObject* object);
 };
 

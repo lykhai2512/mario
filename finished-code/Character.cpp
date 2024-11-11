@@ -18,8 +18,12 @@ void Character::move(){}
 
 void Character::jump(){}
 
-void Character::shoot(){}
-
-void Character::becomeSmaller(){}
-
 void Character::die(){}
+
+void Character::collect(WorldObject *object){}
+
+void Character::standOn(WorldObject *object){}
+
+void Character::setPositionFor(WorldObject *object){}
+
+void Character::hit(WorldObject *object){}

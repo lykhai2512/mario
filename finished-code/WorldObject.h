@@ -11,6 +11,10 @@ public:
     virtual void move() = 0;
     virtual void jump() = 0;
     virtual void die() = 0;
+    virtual void collect(WorldObject* object) = 0;
+    virtual void standOn(WorldObject* object) = 0;
+    virtual void setPositionFor(WorldObject* object) = 0;
+    virtual void hit(WorldObject* object) = 0;
 };
 
 
