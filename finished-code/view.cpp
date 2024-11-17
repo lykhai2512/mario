@@ -1,4 +1,4 @@
-#include "view.h"
+#include "View.h"
 
 View::View(const sf::RenderWindow &w): 
 	m_view(w.getDefaultView()), m_leftLevel(150.0f), m_skyLevel(150.0f), m_rightLevel(w.getSize().x - 150.0f), m_groundLevel(w.getSize().y - 150.0f){
