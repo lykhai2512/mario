@@ -1,22 +1,19 @@
 #pragma once
 #include<iostream>
 #include<vector>
+#include<map>
 #include "Block.h"
 #include "Item.h"
 #include "Character.h"
 
 
+
 class AssetManager {
 private:
-	std::vector<std::string>dirt_fileNames;
-	std::vector<std::string>brick_fileNames;
-	std::vector<std::string>specialBrick_fileNames;
-	std::vector<std::string>castle_fileNames;
-	//...
+	std::map<std::string, sf::Texture> textures;
+	static AssetManager* ONE_AND_ONLY;
 public:
-	void load();
-	void get(BlockType type,Map map_type);
-	//...
+	AssetManager();
+	static sf::Texture& get(std::string filename);
 };
-
 
