@@ -75,6 +75,11 @@ bool Map::IsCollidingWithBrick(const sf::FloatRect& rect)
     return false;
 }
 
+int Map::getMapHeight()
+{
+	return grid.size() * cellSize;
+}
+
 
 
 

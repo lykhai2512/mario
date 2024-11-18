@@ -1,5 +1,4 @@
-﻿  Character.cpp
-  Game.cpp
+﻿  Game.cpp
 D:\Mario - OOP\MARIO - OOP\MARIO - OOP\Game.cpp(28,75): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
 D:\Mario - OOP\MARIO - OOP\MARIO - OOP\Game.cpp(28,75): warning C4244:         with
 D:\Mario - OOP\MARIO - OOP\MARIO - OOP\Game.cpp(28,75): warning C4244:         [
