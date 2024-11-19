@@ -4,13 +4,9 @@
 #include "WorldObject.h"
 #include "AssetManager.h"
 
-
-
 class Block : public WorldObject{
-private:
+protected:
 	
-	static std::map<int, sf::Vector2f>size;
-
 	bool alive = true;
 
 	sf::Vector2f position;
@@ -24,15 +20,23 @@ public:
 
 	~Block();
 
-	static Block* createBlock(BlockType type,const std::string& image_file,sf::Vector2f position);
+	static Block* createBlock(ID type, const std::string& image_file, sf::Vector2f position,sf::Vector2f size);
 	void move();
     void jump();
     void die();
-    void collect(WorldObject* object);
-    void standOn(WorldObject* object);
-    void setPositionFor(WorldObject* object);
-    void hit(WorldObject* object);
+
+	void collect(WorldObject* item);
+	void beingCollected(sf::Vector2f& position, sf::Texture*& texture, sf::FloatRect& bounds, float& baseGround);
+
+	void standOn(WorldObject* block);
+	void beingStoodOn(sf::Vector2f& position, sf::Texture* texture, sf::FloatRect& bounds, float& baseGround);
+
+	void hit(WorldObject* object);
+	void beingHit(sf::Vector2f& position, sf::Texture* texture, sf::FloatRect& bounds, float& baseGround);
+
 	bool isDead();
 	void draw(sf::RenderWindow* window);
+	
+	void update();
 };
 

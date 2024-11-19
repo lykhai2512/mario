@@ -11,23 +11,8 @@
 #include "Tree.h"
 #include "Mountain.h"
 #include "IndestructibleBrick.h"
+#include "AssetManager.h"
 
-std::map<int,sf::Vector2f> Block::size = std::map<int, sf::Vector2f> {
-    {0,sf::Vector2f(32.f,32.f)},
-    {1,sf::Vector2f(32.f,32.f)},
-    {2,sf::Vector2f(32.f,32.f)},
-    {3,sf::Vector2f(32.f,32.f)},
-    {4,sf::Vector2f(50.f,100.f)},
-    {5,sf::Vector2f(100.f,150.f)},
-    {6,sf::Vector2f(32.f,32.f)},
-    {7,sf::Vector2f(50.f,50.f)},
-    {8,sf::Vector2f(300.f,400.f)},
-    {9,sf::Vector2f(20.f,500.f)},
-    {10,sf::Vector2f(50.f,50.f)},
-    {11,sf::Vector2f(32.f,32.f)},
-    {12,sf::Vector2f(32.f,32.f)},
-    {13,sf::Vector2f(32.f,32.f)},
-};
 
 Block::Block(){}
 
@@ -35,47 +20,48 @@ Block::~Block(){
 	delete texture;
 }
 
-Block* Block::createBlock(BlockType type, const std::string &image_file, sf::Vector2f position)
+
+Block* Block::createBlock(ID type, const std::string &image_file, sf::Vector2f position, sf::Vector2f size)
 {
     Block* result = nullptr;
 
     switch (type)
     {
-    case BlockType::ground:
+    case ID::ground:
         result = new Ground;
         break;
-    case BlockType::indestructible_brick:
+    case ID::indestructible_brick:
         result = new IndestructibleBrick;
         break;
-    case BlockType::base_brick:
+    case ID::base_brick:
         result = new BaseBrick;
         break;
-    case BlockType::brick:
+    case ID::brick:
         result = new HorizontalPipe;
         break;
-    case BlockType::vertical_pipe:
-    case BlockType::vertical_pipe_top:
+    case ID::vertical_pipe:
+    case ID::vertical_pipe_top:
         result = new VerticalPipe;
         break;
-    case BlockType::horizontal_pipe:
+    case ID::horizontal_pipe:
         result = new Cloud;
         break;
-    case BlockType::bonus_brick:
+    case ID::bonus_brick:
         result = new BonusBrick;
         break;
-    case BlockType::small_tree:
-    case BlockType::big_tree:
+    case ID::small_tree:
+    case ID::big_tree:
         result = new Tree;
-    case BlockType::mountain:
+    case ID::mountain:
         result = new Mountain;
         break;
-    case BlockType::cloud:
+    case ID::cloud:
         result = new Cloud;
         break;
-    case BlockType::castle:
+    case ID::castle:
         result = new Castle;
         break;
-    case BlockType::flag:
+    case ID::flag:
         result = new Flag;
         break;
     default:
@@ -88,7 +74,7 @@ Block* Block::createBlock(BlockType type, const std::string &image_file, sf::Vec
         result->texture = new sf::Texture;
         if (!result->texture->loadFromFile(image_file)) exit(1);
 
-        result->shape.setSize(size[(int)type]);
+        result->shape.setSize(size);
         result->shape.setTexture(result->texture);
         result->position = position;
     }
@@ -104,21 +90,34 @@ void Block::die() {
 	alive = false;
 }
 
-void Block::collect(WorldObject *object) {}
+void Block::collect(WorldObject* item) {
 
-void Block::standOn(WorldObject *object) {}
+}
+void Block::beingCollected(sf::Vector2f& position, sf::Texture*& texture, sf::FloatRect& bounds, float& baseGround){
 
-void Block::setPositionFor(WorldObject *object) {}
-
-void Block::hit(WorldObject *object) {}
-
-bool Block::isDead() {
-	return !alive;
 }
 
+void Block::standOn(WorldObject* block){
+
+}
+void Block::beingStoodOn(sf::Vector2f& position, sf::Texture* texture, sf::FloatRect& bounds, float& baseGround){
+
+}
+
+void Block::hit(WorldObject* object){
+
+}
+void Block::beingHit(sf::Vector2f& position, sf::Texture* texture, sf::FloatRect& bounds, float& baseGround){
+
+}
+
+bool Block::isDead(){
+    return false;
+}
 void Block::draw(sf::RenderWindow* window){
-	this->shape.setPosition(position);
-	window->draw(this->shape);
+
 }
 
+void Block::update(){
 
+}

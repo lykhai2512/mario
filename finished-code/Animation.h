@@ -1,17 +1,14 @@
 #pragma once
 #include<SFML/Graphics.hpp>
+#include "AnimationStrategy.h"
 
 class Animation {
 private:
-	void handleMarioAnimation();
-	void handleLuigiAnimation();
-	//...
+	AnimationStrategy* strategy;
 public:
-	void handleCharacterAnimation();
-	//...
+	~Animation();
+	
 };
-
-
 
 
 

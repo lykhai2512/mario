@@ -3,16 +3,11 @@
 #include<vector>
 #include<string>
 #include<fstream>
+#include<map>
 #include<SFML/Graphics.hpp>
 
-class Block;
-class Item;
-class Character;
-enum class BlockType;
-enum class ItemType;
-enum class CharacterType;
 
-enum class BlockType {
+enum class ID {
 	none = -1,
 	ground = 0,
 	indestructible_brick = 1,
@@ -27,62 +22,131 @@ enum class BlockType {
 	mountain = 10,
 	cloud = 11,
 	castle = 12,
-	flag = 13
+	flag = 13,
+	flower = 14,
+	good_mushroom = 15,
+	coin = 16,
+	star = 17,
+	Mario = 18,
+	Luigi = 19,
+	Item = 21,
+	Character = 22,
+	map1 = 23,
+	map2 = 24,
+	map3 = 25,
+	map4 = 26,
 };
 
-
-enum class ItemType {
-    none = -1,
-    flower = 0,
-    good_mushroom = 1,
-    coin = 2,
-    star = 3
-};
-
-enum class CharacterType {
-    none = -1,
-    Mario = 0,
-    Luigi = 1
-};
-
-enum class EntityType{
-	Block = 1,
-	Item = 2,
-	Character = 3
-};
-
-enum class MapType{
-	map1 = 1,
-	map2 = 2,
-	map3 = 3,
-	map4 = 4,
-};
 
 class AssetManager {
 private:
-	const std::string baseLink = "images/NotAnimation/Map";
-	const int numOfMaps = 4;
-	const std::string positionFile = "images/position";
 
-	const std::vector<std::string>types = {"ground","indestructible_brick","base_brick",
-	"brick","vertical_pipe","vertical_pipe_top","horizontal_pipe","bonus_brick",
-	"small_tree","big_tree","mountain","cloud","castle","flag"};
+	const std::vector<sf::Vector2f>size = {
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(100.f,50.f),
+		sf::Vector2f(150.f,50.f),
+		sf::Vector2f(100.f,150.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(80.f,80.f),
+		sf::Vector2f(100.f,100.f),
+		sf::Vector2f(100.f,50.f),
+		sf::Vector2f(100.f,50.f),
+		sf::Vector2f(300.f,300.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+		sf::Vector2f(50.f,50.f),
+	};
 
+	const std::vector<std::string>file = {
+		"../images/NotAnimation/ground.png",
+		"../images/NotAnimation/indestructible_brick.png",
+		"../images/NotAnimation/base_brick.png",
+		"../images/NotAnimation/brick.png",
+		"../images/NotAnimation/vertical_pipe.png",
+		"../images/NotAnimation/vertical_pipe_top.png",
+		"../images/NotAnimation/horizontal_pipe.png",
+		"../images/NotAnimation/bonus_brick.png",
+		"../images/NotAnimation/small_tree.png",
+		"../images/NotAnimation/big_tree.png",
+		"../images/NotAnimation/mountain.png",
+		"../images/NotAnimation/cloud.png",
+		"../images/NotAnimation/castle.png",
+		"../images/NotAnimation/flag.png",
+		"../images/NotAnimation/flower.png",
+		"../images/NotAnimation/good_mushroom.png",
+		"../images/NotAnimation/coin.png",
+		"../images/NotAnimation/star.png",
+		"../images/NotAnimation/Mario.png",
+		"",
+		"",
+		"",
+		"",
+		"../images/map1.png",
+		"../images/map2.png",
+		"../images/map3.png",
+		"../images/map4.png",
+	};
 
-	std::vector<std::vector<std::vector<sf::Vector2f>>>map;
+	const std::vector<sf::Color>inforOfColor = {
+		sf::Color(168, 94, 50),
+		sf::Color(168, 62, 50),
+		sf::Color(168, 68, 50),
+		sf::Color(168, 89, 50),
+		sf::Color(97, 168, 50),
+		sf::Color(80, 168, 50),
+		sf::Color(50, 168, 70),
+		sf::Color(168, 144, 50),
+		sf::Color(50, 168, 60),
+		sf::Color(50, 168, 78),
+		sf::Color(50,168, 115),
+		sf::Color(105,102, 102),
+		sf::Color(145,91,15),
+		sf::Color(36,77,3),
+		sf::Color(0,0,0),
+		sf::Color(0,0,0),
+		sf::Color(0,0,0),
+		sf::Color(0,0,0),
+		sf::Color(235, 52, 52),
+		sf::Color(0,0,0),
+		sf::Color(0,0,0),
+		sf::Color(0,0,0),
+		sf::Color(0,0,0),
+		sf::Color(0,0,0),
+		sf::Color(0,0,0),
+		sf::Color(0,0,0),
+		sf::Color(0,0,0),
+	};
+
+	const float speed = 1.f;
+	const float gravity = 1.f;
+
 	static AssetManager* instance;
-
-	void readAnimationFile();
-	void readPositionOfMap();
 
 public:
 	static AssetManager* getInstance();
 	AssetManager();
 	~AssetManager();
-	void load();
-	std::string getImage(MapType m_type,EntityType e_type,BlockType b_type = BlockType::none,ItemType i_type = ItemType::none,CharacterType c_type = CharacterType::none);
-	std::vector<std::vector<sf::Vector2f>>getPosition(MapType m_type);
-	std::vector<sf::Vector2f>getPosition(MapType m_type,EntityType e_type ,BlockType b_type = BlockType::none,ItemType i_type = ItemType::none,CharacterType c_item = CharacterType::none);
+	
+	std::string getImageFile(sf::Color color);
+	sf::Vector2f getSize(sf::Color color);
+	std::string getMapFile(ID id);
+	ID getID(sf::Color color);
+	float getSpeed();
+	float getGravity();
 };
 
 

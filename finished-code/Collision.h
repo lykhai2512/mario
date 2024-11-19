@@ -1,34 +1,15 @@
 #pragma once
-#include "Character.h"
-#include "Block.h"
-#include "Item.h"
-#include "Sound.h"
-
-typedef void(*operation)();
+#include "WorldObject.h"
 
 class Collision {
-private:
-
-    //for first function in public
-    void CharacterInLeftOfBlock(WorldObject* character, WorldObject* block, operation);
-    void CharacterInRightOfBlock(WorldObject* character, WorldObject* block, operation);
-    void CharacterOnTopOfBlock(WorldObject* character, WorldObject* block, operation);
-    void CharacterHitBlockFromBelow(WorldObject* character, WorldObject* block, operation);
-    //for second (special case for turtle,...)
-    void onTopOfEnemy(WorldObject* character, WorldObject* enemy, operation);
-    void onRightOfEnemy(WorldObject* character, WorldObject* enemy, operation);
-    void onLeftOfEnemy(WorldObject* character, WorldObject* enemy, operation);
-    //for third
-
-    //...
-
 public:
-    //strategy design pattern, for last function
-    void CharacterAndBlock(WorldObject* character, WorldObject* block, operation);
-    void CharacterAndEnemy(WorldObject* character, WorldObject* enemy, operation);
-    void EnemyAndBlock(WorldObject* enemy, WorldObject* block, operation);
-    //...
+	void handleAllCollision(std::vector<WorldObject*>good_characters, std::vector<WorldObject*>bad_characters
+	, std::vector<WorldObject*>items, std::vector<WorldObject*>blocks);
 
-    //last function
-    void handleAllCollision(std::vector<WorldObject*>world_objects, SoundManager allSounds);
+	void GoodCharacterAndItem(WorldObject* good_character, WorldObject* item);
+	void GoodCharacterAndBlock(WorldObject* good_character, WorldObject* block);
+	void GoodCharacterAndBadCharacter(WorldObject* good_character, WorldObject* bad_character);
+	void BadCharacterAndItem(WorldObject* bad_character, WorldObject* item);
+	void BadCharacterAndBlock(WorldObject* bad_character, WorldObject* block);
+	void ItemAndBlock(WorldObject* item, WorldObject* block);
 };

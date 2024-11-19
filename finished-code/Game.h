@@ -1,15 +1,14 @@
 #pragma once
-#include "WorldObject.h"
-
+#include <SFML/Graphics.hpp>
+#include "GameState.h"
 
 class Game {
 private:
-	std::vector<WorldObject*>all_objects;
-	MapType map_type;
-
-	void loadMap();
-	void draw(sf::RenderWindow* window);
+	
+	sf::RenderWindow* window;
+	sf::Event* ev;
+	GameState* currentState;
 public:
-	void start(sf::RenderWindow* window);
+	void run();
 	~Game();
 };
