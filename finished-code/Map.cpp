@@ -16,7 +16,7 @@ Map::Map(std::string filename) // for now this will be a .txt file. ' ' represen
 			if (l == ' ')
 				lineElements.push_back(0);
 			else
-				lineElements.push_back(new Block(AssetManager::get("block.png"), 32, 32));
+				lineElements.push_back(new Block(AssetManager::getTexture("resources/block.png"), 32, 32));
 		}
 		this->elementPTRs.push_back(lineElements);
 	}

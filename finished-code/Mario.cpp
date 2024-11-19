@@ -30,7 +30,9 @@ Mario::Mario(sf::Texture &tS, float XA, float maxXA, float YA, float XD, int siz
 
 void Mario::move(float dT)
 {
-	float frame = 40;
+
+	float frame = 60;
+
 	//std::cout << "Vx: " << this->Vx << " Vy: " << this->Vy << "\n";
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) && !this->isMidAid)
 	{
@@ -49,8 +51,8 @@ void Mario::move(float dT)
 		if (Vx > this->XCap)
 			Vx = this->XCap;
 	}
-
 	this->sprite.move(Vx * dT * frame, Vy * dT * frame);
+
 	tickDownToZero(Vx, XDecel * dT * frame);
 	if(this->isMidAid)
 		Vy += 3 * dT * frame;
@@ -74,6 +76,7 @@ void Mario::move(float dT)
 	//else
 	//	this->isMidAid = true;
 	//	
+
 }
 
 void Mario::setPosition(sf::Vector2f a)
@@ -128,10 +131,10 @@ void Mario::setPositionFor(WorldObject* object)
 void Mario::mapCollisionHandler(Map &topo)
 {
 	int indexI, indexJ;
-	indexI = this->getPosition().y / 32.0;
-	indexJ = this->getPosition().x / 32.0;
-	std::cout << "MARIO POS: " << this->getPosition().x << ", " << this->getPosition().y << "\n"
-		<< "I, J:      " << indexI << ", " << indexJ << "\n";
+	indexI = (this->getPosition().y) / 32.0;
+	indexJ = (this->getPosition().x) / 32.0;
+	//std::cout << "MARIO POS: " << this->getPosition().x << ", " << this->getPosition().y << "\n"
+	//	<< "I, J:      " << indexI << ", " << indexJ << "\n";
 	
 
 	
@@ -140,33 +143,71 @@ void Mario::mapCollisionHandler(Map &topo)
 	int sideIndexI[4]{ 0, 1, -1, 0 }; // left, down, up, right
 	int sideIndexJ[4]{ -1, 0, 0, 1 };
 
-	//if (indexI + sideIndexI[0] >= 0 && indexI + sideIndexI[0] < ILimit &&
-	//	indexJ + sideIndexJ[0] >= 0 && indexJ + sideIndexJ[0] < JLimit &&
-	//	topo[indexI + sideIndexI[0]][indexJ + sideIndexJ[1]] &&
-	//	this->sprite.getGlobalBounds().intersects(topo[indexI + sideIndexI[0]][indexJ + sideIndexJ[0]]->getGlobalBounds())
-	//	)
-	//{// left
-	//	std::cout << "colliding, left\n";
-	//	std::cout << "checkint at square " << indexI + sideIndexI[0] << ", " << indexJ + sideIndexJ[0] << "\n";
-	//	this->setPosition(sf::Vector2f(topo[indexI + sideIndexI[0]][indexJ + sideIndexJ[0]]->getGlobalBounds().left + 32, this->getPosition().y));
-	//}
-	
-	std::cout << "CHK: " << indexI + sideIndexI[1] << ", " << indexJ + sideIndexJ[1] << "\n\n";
+	//std::cout << "CHK: " << indexI + sideIndexI[1] << ", " << indexJ + sideIndexJ[1] << "\n\n";
 
-	if (indexI + sideIndexI[1] >= 0 && indexI + sideIndexI[1] < ILimit &&
-		indexJ + sideIndexJ[1] >= 0 && indexJ + sideIndexJ[1] < JLimit &&
-		topo[indexI + sideIndexI[1]][indexJ + sideIndexJ[1]] &&
-		this->sprite.getGlobalBounds().intersects(topo[indexI + sideIndexI[1]][indexJ + sideIndexJ[1]]->getGlobalBounds())
+	if (indexI + 1 >= 0 && indexI + 1 < ILimit &&
+		indexJ + 0 >= 0 && indexJ + 0 < JLimit &&
+		topo[indexI + 1][indexJ + 0] &&
+		this->sprite.getGlobalBounds().intersects(topo[indexI + 1][indexJ + 0]->getGlobalBounds())
 		)
 	{// down
-		std::cout << "////////\n////////\n////////\n////////\n";
-		std::cout << "colliding, down\n";
-		std::cout << "checkint at square " << indexI + sideIndexI[1] << ", " << indexJ + sideIndexJ[1] << "\n";
-		this->setPosition(sf::Vector2f(this->getPosition().x, topo[indexI + sideIndexI[1]][indexJ + sideIndexJ[1]]->getPosition().y - 32));
+		this->setPosition(sf::Vector2f(this->getPosition().x, topo[indexI + 1][indexJ + 0]->getPosition().y - 32));
 		this->Vy = 0;
 		this->isMidAid = false;
 	}
-	else
-		this->isMidAid = true;
+	if (indexI + 1 >= 0 && indexI + 1 < ILimit &&
+		indexJ + 1 >= 0 && indexJ + 1 < JLimit &&
+		topo[indexI + 1][indexJ + 1] &&
+		this->sprite.getGlobalBounds().intersects(topo[indexI + 1][indexJ + 1]->getGlobalBounds())
+		)
+	{// down, right
+		this->setPosition(sf::Vector2f(this->getPosition().x, topo[indexI + 1][indexJ + 1]->getPosition().y - 32));
+		this->Vy = 0;
+		this->isMidAid = false;
+	}
+	if (indexI + 1 >= 0 && indexI + 1 < ILimit &&
+		indexJ + -1 >= 0 && indexJ + -1 < JLimit &&
+		topo[indexI + 1][indexJ + -1] &&
+		this->sprite.getGlobalBounds().intersects(topo[indexI + 1][indexJ + -1]->getGlobalBounds())
+		)
+	{// down, left
+		this->setPosition(sf::Vector2f(this->getPosition().x, topo[indexI + 1][indexJ + -1]->getPosition().y - 32));
+		this->Vy = 0;
+		this->isMidAid = false;
+	}
 
+	// indexI + 0, indexJ + 1
+	// right side
+	if (indexI >= 0 && indexI < ILimit &&
+		indexJ + 1 >= 0 && indexJ + 1 < JLimit &&
+		topo[indexI][indexJ + 1] &&
+		this->sprite.getGlobalBounds().intersects(topo[indexI][indexJ + 1]->getGlobalBounds())
+		)
+	{
+		//std::cout << "colliding right\n";
+		this->setPosition(sf::Vector2f(topo[indexI][indexJ + 1]->getPosition().x - 32, this->getPosition().y));
+		this->Vx = 0;
+	}
+	// indexI + 0, indexJ
+	// left side
+	if (indexI >= 0 && indexI < ILimit &&
+		indexJ >= 0 && indexJ < JLimit &&
+		topo[indexI][indexJ] &&
+		this->sprite.getGlobalBounds().intersects(topo[indexI][indexJ]->getGlobalBounds())
+		)
+	{
+		//std::cout << "colliding left\n";
+		this->setPosition(sf::Vector2f(topo[indexI][indexJ]->getPosition().x + 32, this->getPosition().y));
+		this->Vx = 0;
+	}
+	
+	if (indexI + 1 >= 0 && indexI + 1 < ILimit &&
+		indexJ + 0 >= 0 && indexJ + 0 < JLimit &&
+		!topo[indexI + 1][indexJ + 0]
+		&&
+		indexI + 1 >= 0 && indexI + 1 < ILimit &&
+		indexJ + 1 >= 0 && indexJ + 1 < JLimit &&
+		!topo[indexI + 1][indexJ + 1]
+		)
+		this->isMidAid = true;
 }

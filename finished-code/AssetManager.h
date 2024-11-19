@@ -7,13 +7,14 @@
 #include "Character.h"
 
 
-
 class AssetManager {
 private:
 	std::map<std::string, sf::Texture> textures;
+	std::map<std::string, sf::Font> fonts;
 	static AssetManager* ONE_AND_ONLY;
 public:
 	AssetManager();
-	static sf::Texture& get(std::string filename);
+	static sf::Texture& getTexture(std::string filename);
+	static sf::Font& getTypeFace(std::string filename);
 };
 
