@@ -31,7 +31,6 @@ private:
 public:
 	static Enemy* createEnemy(EnemyType type);
 	void move();
-        void jump();
         void die();
         void standOn(WorldObject* object);
         void setPositionFor(WorldObject* object);
