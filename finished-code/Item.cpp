@@ -10,7 +10,10 @@ Item::Item()
 }
 
 Item::~Item(){
-	delete texture;
+	delete this->texture;
+    delete this->sprite;
+    delete this->shape;
+    delete this->animation;
 }
 
 Item* Item::createItem(ID type, const std::string& image_file, sf::Vector2f position, sf::Vector2f size){
@@ -40,60 +43,40 @@ Item* Item::createItem(ID type, const std::string& image_file, sf::Vector2f posi
         result->texture = new sf::Texture;
         if (!result->texture->loadFromFile(image_file)) exit(1);
 
-        result->shape.setSize(size);
-        result->shape.setTexture(result->texture);
+        result->shape->setSize(size);
+        result->sprite->setTexture(*(result->texture));
         result->position = position;
     }
 
     return result;
 }
 
-void Item::move()
-{
+void Item::move(){}
+
+void Item::die(){
+    this->alive = false;
 }
 
-void Item::jump()
-{
-}
+void Item::beingCollected(){}
 
-void Item::die()
-{
-}
-
-void Item::collect(WorldObject* item)
-{
-}
-
-void Item::beingCollected(sf::Vector2f& position, sf::Texture*& texture, sf::FloatRect& bounds, float& baseGround)
-{
-}
-
-void Item::standOn(WorldObject* block)
-{
-}
-
-void Item::beingStoodOn(sf::Vector2f& position, sf::Texture* texture, sf::FloatRect& bounds, float& baseGround)
-{
-}
-
-void Item::hit(WorldObject* object)
-{
-}
-
-void Item::beingHit(sf::Vector2f& position, sf::Texture* texture, sf::FloatRect& bounds, float& baseGround)
-{
+void Item::reset(){
+    this->baseGround = std::numeric_limits<float>::max();
 }
 
 bool Item::isDead()
 {
-    return false;
+    return !(this->alive);
 }
 
-void Item::update()
-{
+void Item::update(){
+
 }
 
-void Item::draw(sf::RenderWindow* window)
-{
+void Item::draw(sf::RenderWindow* window){
+    window->draw(*(this->sprite));
+    window->draw(*(this->shape));
 }
+
+void Item::twinkle(){}
+
 

@@ -1,10 +1,10 @@
 #pragma once
-#include "Character.h"
+#include "PlayableCharacter.h"
 
-class Mario : public Character{
+class Mario : public PlayableCharacter{
 public:
 	Mario();
-	void move();
-	void hit(WorldObject* object);
+	void hit(NonPlayableCharacter* character);
+	void beingStoodOn();
 };
 

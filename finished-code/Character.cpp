@@ -1,97 +1,62 @@
 #include "Character.h"
 #include "Mario.h"
 #include "Luigi.h"
+#include <limits>
 
 
 Character::Character(){}
 
 Character::~Character(){
+	delete this->sprite;
+	delete this->animation;
 	delete this->texture;
+	delete this->animation_texture;
+	delete this->shape;
 }
 
-Character* Character::createCharacter(ID type, const std::string& image_file, sf::Vector2f position, sf::Vector2f size, float baseGround)
-{
-	Character* result = nullptr;
-	
-	switch (type)
-	{
-	case ID::Mario:
-		result = new Mario;
-		break;
-	case ID::Luigi:
-		result = new Luigi;
-		break;
-	default:
-		result = nullptr;
-		break;
-	}
-
-	if (result)
-	{
-		result->texture = new sf::Texture;
-		if (!result->texture->loadFromFile(image_file)) exit(1);
-
-		result->shape.setSize(size);
-		result->shape.setTexture(result->texture);
-		result->position = position;
-		result->baseGround = baseGround;
-	}
-	
-	return result;
-}
 
 void Character::move(){}
 
-void Character::jump(){
+void Character::jump(){}
 
-}
-
-void Character::die()
-{
-}
-
-void Character::collect(WorldObject* item)
-{
-}
-
-void Character::beingCollected(sf::Vector2f& position, sf::Texture*& texture, sf::FloatRect& bounds, float& baseGround)
-{
-}
-
-void Character::standOn(WorldObject* block)
-{
-}
-
-void Character::beingStoodOn(sf::Vector2f& position, sf::Texture* texture, sf::FloatRect& bounds, float& baseGround)
-{
-}
-
-void Character::hit(WorldObject* object)
-{
-}
-
-void Character::beingHit(sf::Vector2f& position, sf::Texture* texture, sf::FloatRect& bounds, float& baseGround)
-{
+void Character::die(){
+	this->alive = false;
 }
 
 
+
+void Character::standOn(Block* block){
+	//write here
+	
+}
+
+void Character::beingStoodOn(){
+
+}
+
+
+
+void Character::reset(){
+	this->baseGround = std::numeric_limits<float>::max();
+}
 
 bool Character::isDead()
 {
-	return false;
+	return !(this->alive);
 }
 
 void Character::update(){
-	
-
+	//check texture;
+	this->position.y = this->baseGround;
+	this->sprite->setPosition(this->position);
+	if (!hasDoneSth) this->sprite->setTexture(*(this->texture));
+	else this->sprite->setTexture(*(this->animation_texture));
+	this->shape->setPosition(this->position);
 }
 
 void Character::draw(sf::RenderWindow* window){
-	
+	this->update();
+	window->draw(*sprite);
+	window->draw(*shape);
 }
-
-
-
-
-
 

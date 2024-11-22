@@ -17,9 +17,9 @@
 Block::Block(){}
 
 Block::~Block(){
-	delete texture;
+	delete this->texture;
+    delete this->sprite;
 }
-
 
 Block* Block::createBlock(ID type, const std::string &image_file, sf::Vector2f position, sf::Vector2f size)
 {
@@ -75,49 +75,33 @@ Block* Block::createBlock(ID type, const std::string &image_file, sf::Vector2f p
         if (!result->texture->loadFromFile(image_file)) exit(1);
 
         result->shape.setSize(size);
-        result->shape.setTexture(result->texture);
+        result->sprite->setTexture(*(result->texture));
         result->position = position;
     }
     
     return result;
 }
 
-void Block::move() {}
-
-void Block::jump() {}
-
 void Block::die() {
-	alive = false;
+    this->alive = false;
 }
 
-void Block::collect(WorldObject* item) {
-
+bool Block::isDead() {
+    return !this->alive;
 }
-void Block::beingCollected(sf::Vector2f& position, sf::Texture*& texture, sf::FloatRect& bounds, float& baseGround){
-
-}
-
-void Block::standOn(WorldObject* block){
-
-}
-void Block::beingStoodOn(sf::Vector2f& position, sf::Texture* texture, sf::FloatRect& bounds, float& baseGround){
-
+void Block::draw(sf::RenderWindow* window) {
+    this->update();
+    window->draw(this->shape);
 }
 
-void Block::hit(WorldObject* object){
-
+void Block::update() {
+    
 }
-void Block::beingHit(sf::Vector2f& position, sf::Texture* texture, sf::FloatRect& bounds, float& baseGround){
+
+void Block::beingStoodOn() {
 
 }
 
-bool Block::isDead(){
-    return false;
-}
-void Block::draw(sf::RenderWindow* window){
-
-}
-
-void Block::update(){
+void Block::beingHit() {
 
 }

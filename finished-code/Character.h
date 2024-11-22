@@ -1,41 +1,39 @@
 #pragma once
 
 #include "Block.h"
+#include "Item.h"
+#include "Animation.h"
+#include "AssetManager.h"
 
-class Character : public WorldObject{
+
+class Character{
 protected:
-
-
 	bool alive = true;
-
+	bool hasDoneSth = false;
+	sf::Sprite *sprite;
 	sf::Vector2f position;
 	sf::Texture* texture;
-	sf::RectangleShape shape;
+	sf::RectangleShape *shape;
 	float baseGround;
-
+	sf::Texture* animation_texture;
+	Animation *animation;
 public:
-
 
 	Character();
 
 	~Character();
 
-	static Character* createCharacter(ID type, const std::string& image_file, sf::Vector2f position, sf::Vector2f size,float baseGround);
-	void move();
-	void jump();
-	void die();
-	void collect(WorldObject* item);
-	void beingCollected(sf::Vector2f& position, sf::Texture*& texture, sf::FloatRect& bounds, float& baseGround);
+	virtual void move();
+	virtual void jump();
+	virtual void die();
 
-	void standOn(WorldObject* block);
-	void beingStoodOn(sf::Vector2f& position, sf::Texture* texture, sf::FloatRect& bounds, float& baseGround);
+	virtual void standOn(Block* block);
+	virtual void beingStoodOn();
 
-	void hit(WorldObject* object);
-	void beingHit(sf::Vector2f& position, sf::Texture* texture, sf::FloatRect& bounds, float& baseGround);
+	virtual void reset();
 
-
-	bool isDead();
-	void update();
-	void draw(sf::RenderWindow* window);
+	virtual bool isDead();
+	virtual void update();
+	virtual void draw(sf::RenderWindow* window);
 };
 

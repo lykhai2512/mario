@@ -3,9 +3,39 @@
 AssetManager* AssetManager::instance = nullptr;
 
 
+void AssetManager::load(){
+    this->loadBlocks();
+    this->loadItems();
+    this->loadNonPlayableCharacters();
+    this->loadPlayableCharacters();
+}
+
+void AssetManager::loadBlocks(){
+    sf::Texture readFile;
+    if (!readFile.loadFromFile(FILE[0])) {
+        std::cout << "Cannot load from file " + FILE[0];
+        exit(1);
+    }
+
+    float offsetX = 0;
+
+    for (int i = 0; i < NUMBER_OF_BLOCKS; i++) {
+        sf::Sprite* new_sprite = new sf::Sprite;
+        new_sprite->setTexture(readFile);
+        new_sprite->setTextureRect(sf::IntRect((int)offsetX,0,BlockSize[i].x, BlockSize[i].y));
+        blocks.push_back(new_sprite);
+
+        offsetX += BlockSize[i].x;
+    }
+}
+
+
+
+
 AssetManager* AssetManager::getInstance() {
     if (!instance) {
         instance = new AssetManager;
+        instance->load();
     }
     return instance;
 }
@@ -15,50 +45,14 @@ AssetManager::AssetManager(){}
 
 AssetManager::~AssetManager(){
     delete instance;
+    
+
     instance = nullptr;
+
 }
 
-std::string AssetManager::getImageFile(sf::Color color){
-    int id = (int)(getID(color));
 
-    if (id > file.size()) {
-        std::cout << "No image for this ID!";
-        exit(1);
-    }
-    return file[id];
-}
 
-sf::Vector2f AssetManager::getSize(sf::Color color)
-{
-    int id = (int)getID(color);
 
-    if (id > size.size()) {
-        std::cout << "No size for ID " + std::to_string(id);
-        exit(1);
-    }
-    return size[id];
-}
 
-std::string AssetManager::getMapFile(ID id)
-{
-    return file[(int)id];
-}
-
-ID AssetManager::getID(sf::Color color) {
-    for (int i = 0; i < inforOfColor.size(); i++) {
-        if (inforOfColor[i] == color) {
-            return ID(i);
-        }
-    }
-    return ID::none;
-}
-
-float AssetManager::getSpeed()
-{
-    return speed;
-}
-
-float AssetManager::getGravity() {
-    return gravity;
-}
 

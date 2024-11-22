@@ -1,3 +1,11 @@
 #include "SuperMario.h"
 
-SuperMario::SuperMario(Mario* mario) : MarioDecorator(mario){}
+void SuperMario::hit(NonPlayableCharacter* character)
+{
+}
+
+void SuperMario::move()
+{
+}
+
+void SuperMario::beingStoodOn(){}

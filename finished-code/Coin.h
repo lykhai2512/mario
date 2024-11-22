@@ -4,5 +4,8 @@
 class Coin : public Item{
 public:
 	Coin();
+	
+	void beingCollected();
+	void twinkle();
 };
 

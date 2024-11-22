@@ -4,10 +4,13 @@
 
 class Animation {
 private:
-	AnimationStrategy* strategy;
+	std::vector<AnimationStrategy*> strategies;
 public:
+	Animation();
+	Animation(std::vector<AnimationStrategy*>animation_strategies);
+	Animation(Animation& other);
 	~Animation();
-	
+	void addStrategy(AnimationStrategy* animationStrategy);
 };
 
 

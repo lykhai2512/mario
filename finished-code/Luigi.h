@@ -1,7 +1,8 @@
 #pragma once
-#include "Character.h"
+#include "PlayableCharacter.h"
 
-class Luigi : public Character{
+class Luigi : public PlayableCharacter{
+
 public:
 	Luigi();
 };

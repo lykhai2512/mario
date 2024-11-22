@@ -2,12 +2,12 @@
 
 Mario::Mario(){}
 
-void Mario::move(){
-	
+void Mario::hit(NonPlayableCharacter* character) {
+	//write
 }
 
-void Mario::hit(WorldObject* object){
-	
+void Mario::beingStoodOn(){
+	//write
 }
 
 

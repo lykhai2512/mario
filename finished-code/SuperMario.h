@@ -1,10 +1,12 @@
 #pragma once
-#include "MarioDecorator.h"
+#include "CharacterDecorator.h"
 
-class SuperMario : public MarioDecorator{
+class SuperMario : public CharacterDecorator{
 
 public:
-	SuperMario(Mario* mario);
+	void hit(NonPlayableCharacter* character);	
+	void move();
+	void beingStoodOn();
 };
 
 
