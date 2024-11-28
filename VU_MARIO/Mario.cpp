@@ -30,17 +30,10 @@ void Mario::collect(Item *item)
 	// pending implementation
 }
 
-<<<<<<< HEAD:VU_MARIO/Mario.cpp
 void Mario::move(){
 
 }
 
-=======
-void Mario::standOn(NonPlayableCharacter* character)
-{
-	this->hit(character);
-}
->>>>>>> 38eac82cadfc71f71e720716daf4a46ad0c2b960:finished-code/Mario.cpp
 
 void Mario::shoot()
 {
