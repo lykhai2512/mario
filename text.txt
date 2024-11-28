@@ -1,6 +1,0 @@
-MARIO-TYPE PLATFORMER GAME
-CODED WITH C++
-OOP PROGRAMMING
-
-Run: time based
-Pattern:
