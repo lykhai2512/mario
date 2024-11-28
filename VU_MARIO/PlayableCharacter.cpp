@@ -51,7 +51,7 @@ void PlayableCharacter::shoot(){
 }
 
 void PlayableCharacter::hit(Block* block){
-	block->beingHit(this->shape->getGlobalBounds(),this->baseRoof,this->position);
+	block->beingHit(this->shape->getGlobalBounds(),this->position);
 }
 
 bool PlayableCharacter::findMinForView(float& minX){
@@ -75,27 +75,22 @@ void PlayableCharacter::move(){
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		position.x += 5.f;
+		position.x += 1.f;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		position.x -= 5.f;
+		position.x -= 1.f;
 	}
 }
 
 void PlayableCharacter::update(){
 	this->move();
 
-	if (position.y < baseRoof + this->shape->getSize().y) {
-		position.y = baseRoof + this->shape->getSize().y;
-	}
-
 	Character::update();
 }
 
 void PlayableCharacter::reset(){
 	Character::reset();
-	baseRoof = std::numeric_limits<float>::min();
 }
 
 
