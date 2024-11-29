@@ -6,8 +6,8 @@
 
 class Character{
 protected:
-	float Vx;
-	float Vy;
+	float Vx = 0;
+	float Vy = 0;
 	bool alive = true;
 	bool hasDoneSth = false;
 	sf::Sprite *sprite;
@@ -15,7 +15,8 @@ protected:
 	sf::RectangleShape *shape;
 	float baseGround;
 	Animation *animation;
-
+	// added content
+	bool isMidAir = true;
 	void initVariables(sf::Vector2f position, std::vector<AnimationStrategy*> animationStrategy, std::pair<sf::Texture*, std::vector<sf::IntRect>> images);
 public:
 
@@ -34,6 +35,6 @@ public:
 
 	virtual bool isDead();
 	virtual void update();
-	virtual void draw(sf::RenderWindow& window);
+	virtual void draw(sf::RenderWindow* window);
 };
 

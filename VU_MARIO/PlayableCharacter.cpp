@@ -5,6 +5,23 @@
 #include "AutomaticStrategy.h"
 #include "LimitedTimeStrategy.h"
 
+
+void tickDownToZero(float& speed, float amount)
+{
+	if (speed > 0)
+	{
+		speed -= amount;
+		speed = (speed < 0) ? 0 : speed;
+	}
+	else if(speed < 0)
+	{
+		speed += amount;
+		speed = (speed > 0) ? 0 : speed;
+	}
+}
+// debug
+#include <iostream>
+
 PlayableCharacter* PlayableCharacter::createCharacter(PlayableCharacterType type, sf::Vector2f position)
 {
 	PlayableCharacter* result = nullptr;
@@ -70,23 +87,35 @@ void PlayableCharacter::setCenterForView(sf::View* view){
 }
 
 void PlayableCharacter::move(){
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		position.y -= 10.f;
+
+	std::cout << Vx << "\t" << Vy << "\n";
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !isMidAir) {
+		std::cout << "jump press\n";
+		Vy = -16.5;
+		isMidAir = true;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		position.x += 1.f;
+		Vx += 2;
+		Vx = (Vx > 5) ? 5 : Vx;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		position.x -= 1.f;
-	}
+		Vx -= 2;
+		Vx = (Vx < -5) ? -5 : Vx;
+
+	}	
+	position.x += Vx;
+	position.y += (Vy < 0)? Vy : 0;
+
+	tickDownToZero(Vx, 0.5);
+
 }
 
 void PlayableCharacter::update(){
 	this->move();
 
-	Character::update();
+	Character::update(); // update will have gravity applied
 }
 
 void PlayableCharacter::reset(){
@@ -94,3 +123,4 @@ void PlayableCharacter::reset(){
 }
 
 
+// custom overriding for standOnBlock

@@ -114,7 +114,7 @@ void Block::update() {
     
 }
 
-void Block::beingStoodOn(float& baseGround, const sf::FloatRect& bounds) {
+void Block::beingStoodOn(float& baseGround, const sf::FloatRect& bounds) { // this puts the player on the ground
     sf::FloatRect m_bounds = shape->getGlobalBounds();
     
     if (bounds.left + bounds.width >= m_bounds.left && bounds.left <= m_bounds.left + m_bounds.width) {
@@ -124,12 +124,12 @@ void Block::beingStoodOn(float& baseGround, const sf::FloatRect& bounds) {
     }
 }
 
-void Block::beingHit(const sf::FloatRect& bounds, float& baseRoof, sf::Vector2f& position) {
+void Block::beingHit(const sf::FloatRect& bounds, sf::Vector2f& position) { // this pushes players walls
     sf::FloatRect m_bounds = this->shape->getGlobalBounds();
 
     if (bounds.left + bounds.width >= m_bounds.left && bounds.left <= m_bounds.left + m_bounds.width) {
-        if (this->position.y <= bounds.top && this->position.y > baseRoof) {
-            baseRoof = this->position.y;
+        if (this->position.y <= bounds.top /*&& this->position.y > baseRoof*/) {
+            //baseRoof = this->position.y;
         }
         
         if (bounds.left + bounds.width < m_bounds.left + m_bounds.width) {

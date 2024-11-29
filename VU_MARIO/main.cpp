@@ -9,7 +9,7 @@ int main() {
     sf::Event *ev = new sf::Event;
     PlayingState test;
     sf::Clock clock;
-
+    window->setFramerateLimit(20);
     while (window->isOpen()) {
         while (window->pollEvent(*ev)) {
             if (ev->type == sf::Event::Closed) {
@@ -32,7 +32,3 @@ int main() {
 
     return 0;
 }
-
-
- 
-

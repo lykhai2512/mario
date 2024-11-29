@@ -23,7 +23,7 @@ public:
 
 	virtual void beingStoodOn(float& baseGround, const sf::FloatRect& bounds);
 
-	virtual void beingHit(const sf::FloatRect& bounds,float &baseRoof,sf::Vector2f& position);
+	virtual void beingHit(const sf::FloatRect& bounds, sf::Vector2f& position);
 	void beingHitByNonPlayable(const sf::FloatRect& bounds, float& speed);
 
 	virtual bool isDead();

@@ -1,5 +1,2 @@
-﻿  PlayableCharacter.cpp
-C:\Users\Admin\OneDrive - VNU-HCMUS\HK1 - Year2\Lập trình hướng đối tượng\Thực hành\Mario_Bros\VuBranch\testing\VU_MARIO\VU_MARIO\PlayableCharacter.cpp(27,87): warning C4305: 'argument': truncation from 'double' to 'const float'
-C:\Users\Admin\OneDrive - VNU-HCMUS\HK1 - Year2\Lập trình hướng đối tượng\Thực hành\Mario_Bros\VuBranch\testing\VU_MARIO\VU_MARIO\PlayableCharacter.cpp(27,148): warning C4305: 'argument': truncation from 'double' to 'const float'
-C:\Users\Admin\OneDrive - VNU-HCMUS\HK1 - Year2\Lập trình hướng đối tượng\Thực hành\Mario_Bros\VuBranch\testing\VU_MARIO\VU_MARIO\PlayableCharacter.cpp(27,207): warning C4305: 'argument': truncation from 'double' to 'const float'
-  VU_MARIO.vcxproj -> C:\Users\Admin\OneDrive - VNU-HCMUS\HK1 - Year2\Lập trình hướng đối tượng\Thực hành\Mario_Bros\VuBranch\testing\VU_MARIO\Debug\VU_MARIO.exe
+﻿  main.cpp
+  VU_MARIO.vcxproj -> D:\mario\Debug\VU_MARIO.exe

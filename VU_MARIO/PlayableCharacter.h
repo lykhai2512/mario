@@ -4,7 +4,6 @@
 #include "NonPlayableCharacter.h"
 
 class PlayableCharacter : public Character{
-
 public:
 	static PlayableCharacter* createCharacter(PlayableCharacterType type,sf::Vector2f position);
 	void collect(Item* item);
